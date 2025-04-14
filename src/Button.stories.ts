@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
+import { within } from '@testing-library/react';
+import { userEvent } from '@storybook/testing-library';
 
 const meta: Meta<typeof Button> = {
     component: Button,
@@ -39,4 +41,16 @@ export const Disabled: Story = {
         onClick: onClick,
         disabled: true,
     },
+};
+
+export const WithInteraction: Story = {
+    args: {
+        label: 'Button with Interaction',
+        onClick: onClick,
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const button = canvas.getByRole('button');
+        await userEvent.click(button);
+    }
 };
