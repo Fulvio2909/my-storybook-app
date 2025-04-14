@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({ label, onClick, disabled = false
             } catch (error) {
                 console.error('Error executing onClick:', error);
             }
-            setIsDisabled(true); // Abilita il bottone
+            setIsDisabled(false); // Abilita il bottone
         }
     }
 
