@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 type ButtonProps = {
   label: string;
-  onClick: () => void;
-  disabled?: boolean;
+  onClick: () => Promise<void>;
+  disabled: boolean;
 };
 
 /**
@@ -17,21 +17,15 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = ({ label, onClick, disabled = false }) => {
   const [isDisabled, setIsDisabled] = useState(disabled);
 
-    const handleClick = async () => {
-    if (!isDisabled) {
-        setIsDisabled(true); // Disabilita il bottone
-            try {
-                await onClick(); // Esegui la funzione onClick    
-            } catch (error) {
-                console.error('Error executing onClick:', error);
-            }
-            setIsDisabled(false); // Abilita il bottone
-        }
-    }
+  const handleClick = async () => {
+    setIsDisabled(true); // Disabilita il bottone
+    await onClick(); // Esegui la funzione onClick    
+    setIsDisabled(false); // Abilita il bottone
+  }
 
-    return (
-        <button onClick={handleClick} disabled={isDisabled}>
-          {label}
-        </button>
-    );
+  return (
+      <button onClick={handleClick} disabled={isDisabled}>
+        {label}
+      </button>
+  );
 };
