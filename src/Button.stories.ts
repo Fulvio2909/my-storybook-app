@@ -16,3 +16,25 @@ export const Primary: Story = {
         onClick: () => alert('Clicked!'),
     },
 };
+
+// Nuova storia per il bottone
+// Modificare il componente button per supportare la disabilitazione
+// Aggiungere una proprietà disabled al bottone
+// Se la proprietà e null gestire all'onclick prima la disabilitazione
+// Simularare l'operazione del click con un setTimeout di 5 secondi
+// Dopo 5 secondi rimuovere la proprietà disabled e riattivare il bottone
+
+export const Disabled: Story = {
+    args: {
+        label: 'Disabled Button',
+        onClick: () => {
+            return new Promise<void>((resolve) => {
+                setTimeout(() => {
+                    alert('Button is clicked!');
+                    resolve();
+                }, 5000);
+            });
+        },
+        disabled: false,
+    },
+};
